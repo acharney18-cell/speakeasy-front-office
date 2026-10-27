@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><title>The SpeakEasy · Front Office Pro</title><style>
+:root{font-family:system-ui,sans-serif;background:#07101f;color:#eaf1ff}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#203b65,transparent 45%),#07101f;min-height:100vh}header{padding:25px 18px;max-width:980px;margin:auto}.eyebrow{color:#76b4f5;font-size:11px;letter-spacing:.18em;font-weight:800}.heading,.row,.split{display:flex;align-items:center;justify-content:space-between;gap:10px}h1{font-size:clamp(25px,6vw,38px);margin:8px 0}.sub,.muted,.meta,.tiny{color:#9fb1cb}.sub{font-size:13px}.muted{font-size:13px;line-height:1.6}.meta{font-size:12px}.tiny{font-size:11px}.sync,.secondary{background:#174676;border:1px solid #3b70a9;border-radius:12px;color:white;padding:11px 14px;font-weight:700;cursor:pointer}.secondary{background:#203754}.status{font-size:12px;color:#afc3df}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#e0a746;margin-right:6px}.dot.live{background:#41d6a0}.dot.error{background:#f27f89}nav{position:sticky;top:0;z-index:5;display:flex;overflow-x:auto;background:#0a1529;border-bottom:1px solid #2a4160}nav button{white-space:nowrap;background:none;border:0;border-bottom:3px solid transparent;color:#91a5c2;padding:16px;font-weight:750}nav button.active{border-color:#55b5ff;color:#fff}main{max-width:980px;margin:auto;padding:18px 15px 70px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.stat,.panel,.notice{background:#101f35;border:1px solid #2a4262;border-radius:16px;padding:16px}.stat small{display:block;color:#9db1cb;font-size:11px;text-transform:uppercase}.stat strong{display:block;font-size:26px;margin-top:8px}.panel{margin-top:14px}.panel h2{font-size:18px;margin:0 0 12px}.notice{margin-bottom:14px;background:#172a44;color:#c7d8ee;font-size:13px;line-height:1.6}.row{padding:12px 0;border-bottom:1px solid #2a405d}.row:last-child{border:0}.name{font-size:14px;font-weight:750}.score{font-weight:800}.pill,.tag{display:inline-block;background:#243e5b;border-radius:7px;padding:4px 7px;font-size:11px}.tag{color:#72c5ff}.warn{color:#ffd08b}.good{color:#6ce3b6}.hidden{display:none!important}.controls{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}select,input{width:100%;min-width:0;background:#09182b;color:#fff;border:1px solid #3c5678;border-radius:10px;padding:11px;margin:6px 0 12px;font-size:14px}a{color:#88c7ff}.footer{text-align:center;color:#7f99b9;font-size:11px;margin-top:28px}@media(min-width:700px){.grid{grid-template-columns:repeat(4,1fr)}}
+
+/* Front Office Pro: mobile-first accessibility and package editor */
+#p13Assets .row[style*="display:block"]{display:block!important;position:relative;clear:both;padding:18px 0!important}
+#p13Assets .row[style*="display:block"]>b{display:inline-block;max-width:calc(100% - 110px);font-size:1.03rem;line-height:1.5}
+#p13Assets .row[style*="display:block"]>.tiny{display:inline-block;margin-left:6px}
+#p13Assets .row[style*="display:block"]>button{float:none!important;position:absolute;right:0;top:14px;min-width:88px}
+#p13Assets .row[style*="display:block"]>label{display:block;clear:both;padding-top:12px}
+#p13Assets input,#p13Assets select{width:100%;max-width:100%;min-height:48px}
+#p13AddSend,#p13AddReceive,#p13AddPick{margin:10px 0 20px;display:block;max-width:100%}
+#p13Source{margin-bottom:18px}
+.fo-pro{margin-top:18px}.fo-pro h3{margin:0 0 12px}.fo-pro-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.fo-pro-tile{padding:14px;border:1px solid #355474;border-radius:12px;background:#132740;min-width:0}.fo-pro-tile b{font-size:1.2rem}.fo-pro .tiny{line-height:1.5}.fo-pro-actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.fo-pro-actions button{flex:1 1 125px}.fo-pro input,.fo-pro select{min-height:44px}.fo-pro summary{cursor:pointer;font-weight:700;padding:12px 0}.fo-pro .fo-good{color:#5ee2ba}.fo-pro .fo-warn{color:#ffca80}.fo-pro .fo-bad{color:#ff9e9e}.fo-pro details{border-top:1px solid #355474;margin-top:12px}.fo-pro table{width:100%;border-collapse:collapse;font-size:.85rem}.fo-pro td,.fo-pro th{padding:9px 4px;border-bottom:1px solid #355474;text-align:left;overflow-wrap:anywhere}.fo-pro .fo-stat{font-size:1.2rem;font-weight:700}.fo-pro .fo-muted{color:#a9bcd3}.fo-pro input[type="checkbox"]{min-height:unset;width:auto}
+@media(max-width:410px){.fo-pro-grid{grid-template-columns:1fr}.fo-pro-actions button{flex:1 1 100%}}
+</style><style>
+/* Front Office: consolidated mobile-first navigation */
+#nav{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible!important;gap:3px;padding:8px 10px!important;position:sticky;top:0;z-index:30;background:#08172d;border-bottom:1px solid #304d72}
+#nav button{white-space:normal!important;min-width:0!important;font-size:clamp(11px,2.7vw,15px)!important;line-height:1.2!important;padding:12px 3px!important;text-align:center!important;border-radius:8px!important}
+#nav button.active{background:#193c61!important;color:#fff!important;border-bottom:2px solid #60b6ff!important}
+.analytics-subnav{display:none;gap:7px;overflow-x:auto;padding:10px 16px;background:#0c1c34;border-bottom:1px solid #2b4667;scrollbar-width:none}
+.analytics-subnav.visible{display:flex}
+.analytics-subnav button{background:#142b48;color:#b8cde4;border:1px solid #315275;border-radius:9px;padding:9px 12px;white-space:nowrap;font-weight:600}
+.analytics-subnav button.active{color:#fff;background:#20537c;border-color:#66b7ff}
+.advanced-drawer{margin:22px 0;background:#10243f;border:1px solid #385677;border-radius:15px;padding:14px}
+.advanced-drawer>summary{cursor:pointer;font-weight:700;color:#bdd8f5;padding:8px 2px;line-height:1.5}
+.advanced-drawer>.panel,.advanced-drawer>.notice{margin-top:15px}
+.workflow-hint{color:#a7c4df;font-size:.9rem;line-height:1.7;margin:12px 0 20px}
+#trade .panel{overflow-wrap:anywhere}
+#phase13 label{display:block;clear:both;margin-top:12px}
+#phase13 button{max-width:100%;white-space:normal}
+#phase13 input,#phase13 select{max-width:100%;box-sizing:border-box}
+#phase13 .row{gap:10px;flex-wrap:wrap}
+@media(max-width:400px){#nav{padding:7px 5px!important}#nav button{font-size:11px!important;padding:10px 2px!important}.panel{padding:16px!important}}
+
+/* GM Edition mobile-first controls */
+.gm-selector{margin:12px 0;padding:12px;border:1px solid #385677;border-radius:13px;background:#10243f;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.gm-selector label{font-size:12px;font-weight:700;color:#b7d2ee}
+.gm-selector select{max-width:310px;flex:1;min-width:180px;padding:9px;background:#0a1930;color:#fff;border:1px solid #486888;border-radius:9px}
+.gm-selector span{font-size:12px;color:#a6bfd8}
+.gm-waiver-controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:12px 0}
+.gm-waiver-controls label{font-size:12px;color:#b7d2ee}
+.gm-waiver-controls select,.gm-waiver-controls input{width:100%;box-sizing:border-box;margin-top:5px}
+#waiverResults .row{gap:8px;flex-wrap:wrap}#waiverResults button{white-space:normal}
+/* Clean Trade Center: one visible builder and one visible decision panel */
+#tradeAdvanced[hidden]{display:none!important}
+.legacy-score-rows{display:none}
+#phase13>h3{margin-top:24px}
+#marketStatus{margin-top:12px}
+#phase13 .fo-pro-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+#phase13 .fo-pro-actions input{flex:1;min-width:100px}
+#phase13 details{margin-top:12px}
+</style></head><body><header><div class="eyebrow">GM EDITION · LEAGUE INTELLIGENCE</div><div class="heading"><div><h1>The SpeakEasy <span style="color:#71baff">/ FO</span></h1><p class="sub">League intelligence, live from Sleeper</p></div><button class="sync" id="refresh">↻ Refresh</button></div><div class="gm-selector"><label for="gmPerspective">Perspective</label><select id="gmPerspective"><option value="neutral">League overview · neutral</option></select><span id="gmNote">Same valuation rules for every manager.</span></div><div class="status"><span class="dot" id="dot"></span><span id="status">Starting…</span></div></header><nav id="nav"><button data-view="dashboard" type="button">Dashboard</button><button data-view="teamsview" type="button">Teams</button><button data-view="tradeview" type="button">Trade Center</button><button data-view="analytics" type="button">Analytics</button></nav><div aria-label="Analytics sections" class="analytics-subnav" id="analyticsNav"><button data-analytics="power" type="button">Power</button><button data-analytics="optimal" type="button">Lineups</button><button data-analytics="contender" type="button">Contenders</button><button data-analytics="allplay" type="button">All-Play</button></div><main><div class="notice" id="alert">Loading league data…</div>
+<section id="overview"><div class="grid"><div class="stat"><small>League teams</small><strong id="nTeams">—</strong></div><div class="stat"><small>My record</small><strong id="myRecord">—</strong></div><div class="stat"><small>My points for</small><strong id="myPF">—</strong></div><div class="stat"><small>League week</small><strong id="week">—</strong></div></div><div class="panel"><h2>Standings</h2><div class="muted" id="standings">Waiting for sync…</div></div><div class="panel"><h2>League format</h2><div class="muted" id="settings">Loading…</div></div></section>
+<section class="hidden" id="teams"><div class="panel" id="waiverPanel"><h2>Waiver Wire & Free Agency</h2><p class="muted">Live unrostered player pool · balanced 60% win-now / 40% dynasty. Historical positive-game scoring is not a ROS projection. No claim is submitted to Sleeper.</p><div class="gm-waiver-controls"><label>Position<select id="waiverPosition"><option value="ALL">All positions</option><option>QB</option><option>RB</option><option>WR</option><option>TE</option><option>DL</option><option>DE</option><option>DT</option><option>LB</option><option>DB</option><option>CB</option><option>S</option></select></label><label>Search<input id="waiverSearch" placeholder="Find available player" /></label><label>Rank by<select id="waiverSort"><option value="overall">Overall recommendation</option><option value="win">Win-now estimate</option><option value="dynasty">Dynasty market value</option></select></label></div><div class="notice" id="waiverStatus">Sync league to identify free agents.</div><div id="waiverResults"></div><h3>Add / Drop impact</h3><label>Available player<select id="waiverAdd"></select></label><label>Drop from selected team<select id="waiverDrop"></select></label><button class="secondary" id="waiverCompare">Compare add / drop</button><div class="notice" id="waiverImpact">Choose players to compare. Requires completed-week scores for historical lineup impact.</div></div><div class="panel"><h2>Team rosters</h2><select id="teamSelect"></select><div id="roster"></div></div></section>
+<section class="hidden" id="power"><div class="notice">Scoring rankings use Sleeper season points per completed game. Recent form uses reported completed weeks only. These are not dynasty projections.</div><div class="panel"><h2>Season scoring power</h2><div id="powerList"></div></div><div class="panel"><h2>Roster construction</h2><select id="powerTeam"></select><div id="powerContext"></div></div></section>
+<section class="hidden" id="optimal"><div class="notice">Historical best legal lineups based on reported weekly player scores. IR/taxi eligibility is not reconstructed for prior weeks. This is not a projection.</div><div class="grid"><div class="stat"><small>Your efficiency</small><strong id="optEfficiency">—</strong></div><div class="stat"><small>Points left</small><strong id="optLeft">—</strong></div></div><div class="panel"><h2>Lineup efficiency</h2><div id="optLeague"></div></div><div class="panel"><h2>Weekly audit</h2><select id="optTeam"></select><div id="optDetail"></div></div></section>
+<section class="hidden" id="contender"><div class="notice">Descriptive index: season PPG 50%, last 3 completed weeks PPG 30%, historical optimal PPG 20%; each normalized to league leader. Not championship probabilities.</div><div class="panel"><h2>Contender index</h2><div id="ctList"></div></div><div class="panel"><h2>Team breakdown</h2><select id="ctTeam"></select><div id="ctDetail"></div></div></section>
+<section class="hidden" id="allplay"><div class="notice">Each team is compared with all other teams in fully reported completed weeks. Expected wins are all-play win rate × audited weeks. These are historical comparisons.</div><div class="panel"><h2>All-play leaderboard</h2><div id="apBoard"></div></div><div class="panel"><h2>Schedule-luck comparison</h2><div id="apLuck"></div></div><div class="panel"><h2>Weekly audit</h2><select id="apTeam"></select><div id="apDetail"></div></div><div class="panel"><h2>Data quality</h2><div id="apQuality"></div></div></section>
+<section class="hidden" id="picks"><div class="notice">Future draft picks reflect Sleeper's original ownership and traded-pick records.</div><div class="panel"><h2>Draft capital</h2><select id="pickTeam"><option value="all">All teams</option></select><select id="pickYear"><option value="all">All future years</option></select><div id="picksList"></div></div></section>
+<section class="hidden" id="activity"><div class="panel"><h2>Current-week transactions</h2><div id="activityList"></div></div><div class="panel"><h2>Latest matchup scores</h2><div id="matchups"></div></div></section>
+<section class="hidden" id="trade"><div class="panel" id="phase13"><h2>Build a trade</h2><p class="workflow-hint">1 · Choose players and picks     2 · Review impact and confidence     3 · Save a scenario</p><p class="muted">Build a multi-player deal, add draft picks, and compare 2026 lineup impact with long-term asset value. Player and pick values load automatically from StatChasers when available. You can override any value.</p><label>Trade partner</label><select id="p13Partner"></select><label>Send a player</label><select id="p13SendSelect"></select><button class="secondary" id="p13AddSend">+ Add outgoing player</button><label>Receive a player</label><select id="p13ReceiveSelect"></select><button class="secondary" id="p13AddReceive">+ Add incoming player</button><div class="notice" id="p13Assets">Sync your league to begin.</div><h3>Draft picks / other assets</h3><p class="tiny">For automatic pick values, use a label like “2027 Mid 1st” or “2028 2nd”. Early, mid and late first-round picks have different values. Picks affect dynasty value, not projected weekly points.</p><label>Asset description</label><input id="p13PickName" placeholder="2027 1st (from partner)"/><label>Direction</label><select id="p13PickDirection"><option value="in">Receive</option><option value="out">Send</option></select><label>Dynasty value (auto for recognized picks)</label><input id="p13PickValue" min="0" placeholder="Auto-fill or enter value" step="1" type="number"/><button class="secondary" id="p13AddPick">+ Add asset</button><div class="notice" id="marketStatus" aria-live="polite">Loading dynasty valuations…</div><div class="fo-pro-actions"><button class="secondary" id="marketRefresh" type="button">↻ Refresh values</button><a href="https://statchasers.com" target="_blank" rel="noopener noreferrer">Values by StatChasers</a></div><details><summary>Valuation settings and manual overrides</summary><label>Bench spots per team (excluding IR, K and DEF)</label><input id="marketBench" type="number" min="0" max="40" value="15"/><label>Source / notes</label><input id="p13Source" placeholder="Automatic StatChasers or manual source"/></details><div class="legacy-score-rows"><div class="row"><div><b>Win Now</b><div class="meta">Optimized weekly lineup delta</div></div><div class="score" id="p13Win">—</div></div><div class="row"><div><b>Dynasty</b><div class="meta">All asset values, including picks</div></div><div class="score" id="p13Dyn">—</div></div><div class="row"><div><b>Combined</b><div class="meta" id="p13Mix">60% win now · 40% dynasty</div></div><div class="score" id="p13Overall">—</div></div></div><details><summary>Calculation details</summary><div class="notice" id="p13Result">Add assets to begin.</div></details><button class="secondary" id="p13Clear">Clear package</button><p class="tiny">Win-now and dynasty scores are distinct. Injury status and missing projections require judgment; historical zeros never prove an injury.</p></div><details class="advanced-drawer" id="tradeAdvanced" hidden><summary>Advanced tools, legacy comparisons &amp; scoring audits</summary><div class="notice">Trade Lab compares roster context and historical optimized lineups. No fabricated player projections or market values.</div><div class="panel"><h2>Trade scratchpad</h2><label>Assets you give</label><input id="give" placeholder="2027 second-round pick"/><label>Assets you receive</label><input id="get" placeholder="Tony Pollard"/><button class="secondary" id="compare">Save comparison</button><div class="muted" id="tradeResult" style="margin-top:12px">Saved locally on this device.</div></div><div class="panel"><h2>Trade Lab · Player swap</h2><div class="muted">Select the trading partner, player sent and player received. Picks can be noted in the scratchpad; they do not receive invented point values.</div><label>Trading partner</label><select id="tlPartner"></select><label>Player you send</label><select id="tlGive"></select><label>Player you receive</label><select id="tlGet"></select><div class="notice" id="tlImpact">Waiting for roster data.</div></div><div class="panel"><h2>Starting-lineup impact</h2><div class="muted">Historical weekly player averages, not future projections. Optional manual inputs override the selected players' historical averages only.</div><label>Outgoing player's estimated weekly points (optional)</label><input id="liGiveProjection" min="0" placeholder="Use historical average" step="0.1" type="number"/><label>Incoming player's estimated weekly points (optional)</label><input id="liGetProjection" min="0" placeholder="Use historical average" step="0.1" type="number"/><div class="notice" id="liResult">Waiting for completed-week scoring data.</div></div><div class="panel" id="phase12"><h2>Dual-window trade intelligence</h2><p class="muted">Two independent lenses: estimated 2026 lineup improvement and dynasty asset value. Scores are decision aids, not predictions or verified market prices.</p><label>Win-now weighting: <strong id="p12WeightLabel">60%</strong></label><input id="p12Weight" max="100" min="0" step="5" style="width:100%" type="range" value="60"/><div class="tiny">0% = dynasty only · 100% = win now</div><label>Outgoing player availability</label><select id="p12OutHealth"><option value="unknown">Unknown / not assessed</option><option value="active">Expected to play</option><option value="out">Injured / unavailable</option></select><label>Incoming player availability</label><select id="p12InHealth"><option value="unknown">Unknown / not assessed</option><option value="active">Expected to play</option><option value="out">Injured / unavailable</option></select><p class="tiny">Availability is manually selected. Sleeper matchup zeros alone do not prove an injury. An unavailable player is excluded from the 2026 lineup scenario, not assigned zero dynasty value.</p><label>Outgoing player projected PPG (optional)</label><input id="p12OutPPG" min="0" placeholder="Use positive-game historical average" step="0.1" type="number"/><label>Incoming player projected PPG (optional)</label><input id="p12InPPG" min="0" placeholder="Use positive-game historical average" step="0.1" type="number"/><p class="tiny">Manual projections take precedence. Positive-game averages omit zero-point appearances and may overstate expected production; they are labeled estimates.</p><div class="notice" id="p12Lineup">Select trade players to compare starting lineups.</div><div class="row"><div><b>Win Now</b><div class="meta">2026 lineup impact</div></div><div class="score" id="p12WinScore">—</div></div><div class="row"><div><b>Dynasty</b><div class="meta">Manually entered asset values</div></div><div class="score" id="p12DynScore">—</div></div><div class="row"><div><b>Weighted overall</b><div class="meta" id="p12MixLabel">60% win now · 40% dynasty</div></div><div class="score" id="p12Overall">—</div></div><div class="notice" id="p12Verdict">Enter projections and/or dynasty values to see a verdict.</div><div class="tiny">Scores use a transparent 50-neutral scale (50 + 5 points per estimated lineup PPG difference; dynasty 50 + 25 × relative value difference, bounded 0–100). Missing dimensions are not fabricated or silently reweighted. Picks must be included in manual asset-value totals.</div></div><div class="panel"><h2>Scoring integrity &amp; source audit</h2><div class="notice" id="liAudit">Choose an incoming player.</div><div class="notice" id="liProvenance">Choose an incoming player.</div></div><div class="panel"><h2>Manual dynasty value comparison</h2><div class="muted">Enter both totals from the same external source, date and league format. No values are invented.</div><label>Value given</label><input id="tlValueGive" min="0" placeholder="2500" type="number"/><label>Value received</label><input id="tlValueGet" min="0" placeholder="2700" type="number"/><label>Source, format and date</label><input id="tlValueSource" placeholder="Your chosen market source"/><div class="notice" id="tlValueResult">Enter both values to compare.</div><button class="secondary" id="tlSave">Save scenario locally</button><div class="tiny" id="tlSaveStatus"></div></div><div class="panel"><h2>Live market source</h2><div class="muted">Live StatChasers values are used when reachable. Historical scoring is separate from dynasty market value.</div><a href="https://statchasers.com" rel="noopener noreferrer" target="_blank">StatChasers website</a></div></details></section><div class="footer">Unofficial Sleeper companion · League 1321541799956733952 · Read-only public data</div></main>
+<script>
+'use strict';
+const LEAGUE='1321541799956733952',BASE='https://api.sleeper.app/v1';let ME=7;
+let D=null,players=null,history=null,optimalRows=[],contenderRows=[],allPlayRows=[];
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=v=>Number(v||0).toLocaleString(undefined,{maximumFractionDigits:1});
+const pf=r=>Number(r.settings?.fpts||0)+Number(r.settings?.fpts_decimal||0)/100;
+const games=r=>Number(r.settings?.wins||0)+Number(r.settings?.losses||0)+Number(r.settings?.ties||0);
+const rec=r=>`${r.settings?.wins||0}–${r.settings?.losses||0}`;
+const teamName=r=>D?.users?.find(u=>u.user_id===r?.owner_id)?.metadata?.team_name||D?.users?.find(u=>u.user_id===r?.owner_id)?.display_name||'Roster '+(r?.roster_id??'?');
+const pname=id=>players?.[id]?.full_name||[players?.[id]?.first_name,players?.[id]?.last_name].filter(Boolean).join(' ')||'Player '+id;
+const pos=id=>players?.[id]?.fantasy_positions?.[0]||players?.[id]?.position||'Unknown';
+function status(s,k=''){$('status').textContent=s;$('dot').className='dot '+k}
+function row(name,sub,right){return `<div class="row"><div style="min-width:0"><div class="name">${name}</div><div class="meta">${sub}</div></div><div class="score" style="text-align:right">${right}</div></div>`}
+function selectOptions(id,rs,selected){const el=$(id),old=el.value;el.innerHTML=rs.map(r=>`<option value="${esc(r.roster_id)}">${esc(teamName(r))}</option>`).join('');el.value=rs.some(r=>String(r.roster_id)===old)?old:String(selected??rs[0]?.roster_id??'')}
+async function req(path){const r=await fetch(BASE+path,{cache:'no-store'});if(!r.ok)throw Error(`Sleeper returned ${r.status} for ${path}`);return r.json()}
+async function sync(){const b=$('refresh');b.disabled=true;b.textContent='Syncing…';status('Connecting to Sleeper…');try{const [league,users,rosters,picks]=await Promise.all([req('/league/'+LEAGUE),req('/league/'+LEAGUE+'/users'),req('/league/'+LEAGUE+'/rosters'),req('/league/'+LEAGUE+'/traded_picks')]);const week=Number(league.settings?.leg||1);const [m,t]=await Promise.allSettled([req(`/league/${LEAGUE}/matchups/${week}`),req(`/league/${LEAGUE}/transactions/${week}`)]);D={league,users,rosters,picks,matchups:m.status==='fulfilled'?m.value:[],transactions:t.status==='fulfilled'?t.value:[],synced:new Date().toISOString()};try{localStorage.setItem('speakeasyData',JSON.stringify(D))}catch(e){}history=null;render();status('Live sync · '+new Date().toLocaleTimeString(),'live');$('alert').textContent='League synced. Loading historical matchup scores and player positions…';await Promise.allSettled([loadHistory(week),loadPlayers()]);$('alert').textContent='Sleeper league data loaded. Historical tools use completed weeks only.'}catch(e){status('Sync failed','error');$('alert').textContent='Sleeper sync failed: '+e.message+(D?' · Cached league data is still available.':'')}finally{b.disabled=false;b.textContent='↻ Refresh'}}
+async function loadPlayers(){if(players)return;try{players=JSON.parse(localStorage.getItem('speakeasyPlayers')||'null')}catch(e){}if(!players){try{players=await req('/players/nfl');try{localStorage.setItem('speakeasyPlayers',JSON.stringify(players))}catch(e){}}catch(e){$('alert').textContent+=' Player directory unavailable: '+e.message}}render()}
+async function loadHistory(week){const results=await Promise.allSettled(Array.from({length:Math.max(0,week-1)},(_,i)=>req(`/league/${LEAGUE}/matchups/${i+1}`)));history=results.map((r,i)=>r.status==='fulfilled'&&Array.isArray(r.value)?{week:i+1,rows:r.value}:null).filter(Boolean);render()}
+function render(){if(!D)return;const rs=D.rosters,sorted=[...rs].sort((a,b)=>(b.settings?.wins||0)-(a.settings?.wins||0)||pf(b)-pf(a)),mine=rs.find(r=>r.roster_id===ME);$('nTeams').textContent=rs.length;$('myRecord').textContent=mine?rec(mine):'—';$('myPF').textContent=mine?fmt(pf(mine)):'—';$('week').textContent=D.league.settings?.leg||'—';$('settings').textContent=`${rs.length} teams · ${(D.league.roster_positions||[]).filter(s=>s!=='BN').length} starters · ${D.league.settings?.reserve_slots??'?'} IR · ${D.league.settings?.taxi_slots??'?'} taxi · ${D.league.settings?.playoff_teams??'?'} playoff teams · TE reception bonus +${D.league.scoring_settings?.bonus_rec_te||0}`;$('standings').innerHTML=sorted.map((r,i)=>row(`${i+1}. ${esc(teamName(r))}${r.roster_id===ME?' <span class="tag">YOU</span>':''}`,`${rec(r)} · ${fmt(pf(r))} PF`,'')).join('');for(const id of ['teamSelect','powerTeam','optTeam','ctTeam','apTeam'])selectOptions(id,sorted,ME);renderTeam();renderPower();renderOptimal();renderContender();renderAllPlay();renderPicks();renderActivity();populateTrade()}
+function renderTeam(){if(!D)return;const r=D.rosters.find(x=>String(x.roster_id)===$('teamSelect').value);if(!r)return;const groups={};for(const id of r.players||[])(groups[pos(id)]??=[]).push(id);$('roster').innerHTML=`<p class="muted">${esc(teamName(r))} · ${rec(r)} · ${(r.players||[]).length} players</p>`+Object.keys(groups).sort().map(p=>`<h3>${esc(p)} · ${groups[p].length}</h3>`+groups[p].map(id=>row(esc(pname(id)),`${esc(players?.[id]?.team||'')} ${r.reserve?.includes(id)?'· IR':''} ${r.taxi?.includes(id)?'· TAXI':''}`,'')).join('')).join('')}
+function renderPower(){if(!D)return;const rs=[...D.rosters].sort((a,b)=>(games(b)?pf(b)/games(b):-1)-(games(a)?pf(a)/games(a):-1));$('powerList').innerHTML=rs.map((r,i)=>{const samples=(history||[]).map(w=>w.rows.find(m=>m.roster_id===r.roster_id)).filter(m=>m&&m.matchup_id!=null&&m.points!=null&&Number.isFinite(Number(m.points))).slice(-3);return row(`${i+1}. ${esc(teamName(r))}`,`${rec(r)} · last ${samples.length}: ${samples.length?fmt(samples.reduce((a,m)=>a+Number(m.points),0)/samples.length):'—'} PPG`,games(r)?fmt(pf(r)/games(r))+' PPG':'—')}).join('');renderPowerContext()}
+function renderPowerContext(){if(!D)return;const r=D.rosters.find(x=>String(x.roster_id)===$('powerTeam').value);if(!r)return;const c={};for(const id of r.players||[])c[pos(id)]=(c[pos(id)]||0)+1;$('powerContext').innerHTML=`<b>${esc(teamName(r))}</b><p class="muted">${Object.entries(c).map(([p,n])=>esc(p)+': '+n).join(' · ')}</p><p class="tiny">${(r.reserve||[]).length} on IR · ${(r.taxi||[]).length} taxi players. Counts are not dynasty valuations.</p>`}
+function eligible(slot,p){if(!p)return false;const ps=new Set([p.position,...(p.fantasy_positions||[])].filter(Boolean));const has=(...v)=>v.some(x=>ps.has(x));if(slot==='FLEX')return has('RB','WR','TE');if(slot==='SUPER_FLEX')return has('QB','RB','WR','TE');if(slot==='IDP_FLEX')return has('DL','DE','DT','EDR','IL','LB','ILB','OLB','DB','CB','S','SS','FS');if(slot==='DL')return has('DL','DE','DT','EDR','IL');if(slot==='LB')return has('LB','ILB','OLB');if(slot==='DB')return has('DB','CB','S','SS','FS');return has(slot)}
+function optimize(ids,slots,scoreFn){if(!players||slots.length>18||!slots.length)return null;const n=slots.length,full=(1<<n)-1,dp=new Map([[0,{score:0,assign:[]}]]);for(const id of ids){const score=scoreFn(String(id));if(score==null||!Number.isFinite(score)||!players[id])continue;const slotsOk=slots.map((s,j)=>eligible(s,players[id])?j:-1).filter(j=>j>=0);for(const [mask,v] of [...dp])for(const j of slotsOk){const bit=1<<j;if(mask&bit)continue;const key=mask|bit,next=v.score+score;if(!dp.has(key)||dp.get(key).score<next)dp.set(key,{score:next,assign:[...v.assign,{id:String(id),slot:j,score}]})}}return dp.get(full)||null}
+function renderOptimal(){if(!D)return;const slots=(D.league.roster_positions||[]).filter(s=>s!=='BN');if(!history||!players){$('optLeague').textContent='Loading completed weeks and player positions…';return}optimalRows=D.rosters.map(r=>{const weeks=history.map(w=>{const m=w.rows.find(m=>m.roster_id===r.roster_id);if(!m||m.matchup_id==null||!m.players_points)return{week:w.week};const best=optimize(m.players||[],slots,id=>Object.prototype.hasOwnProperty.call(m.players_points,id)&&m.players_points[id]!=null?Number(m.players_points[id]):null);const actual=Array.isArray(m.starters_points)&&m.starters_points.length===slots.length&&m.starters_points.every(v=>v!=null&&Number.isFinite(Number(v)))?m.starters_points.reduce((a,v)=>a+Number(v),0):null;return{week:w.week,actual,best:best?.score??null}});const valid=weeks.filter(w=>w.actual!=null&&w.best!=null),a=valid.reduce((s,w)=>s+w.actual,0),b=valid.reduce((s,w)=>s+w.best,0);return{r,weeks,valid,eff:b?a/b:null,left:b-a}}).sort((a,b)=>(b.eff??-1)-(a.eff??-1));const me=optimalRows.find(x=>x.r.roster_id===ME);$('optEfficiency').textContent=me?.eff!=null?(me.eff*100).toFixed(1)+'%':'—';$('optLeft').textContent=me?.valid.length?fmt(me.left):'—';$('optLeague').innerHTML=optimalRows.map((x,i)=>row(`${i+1}. ${esc(teamName(x.r))}`,`${x.valid.length} weeks · ${fmt(x.left)} left`,x.eff==null?'—':(x.eff*100).toFixed(1)+'%')).join('');renderOptimalDetail()}
+function renderOptimalDetail(){const x=optimalRows.find(x=>String(x.r.roster_id)===$('optTeam').value);$('optDetail').innerHTML=x?x.weeks.map(w=>row('Week '+w.week,w.actual==null||w.best==null?'Insufficient data':`Actual ${fmt(w.actual)} · optimal ${fmt(w.best)}`,w.actual==null||w.best==null?'—':fmt(Math.max(0,w.best-w.actual))+' left')).join(''):'No audit available'}
+function renderContender(){if(!D)return;const raw=D.rosters.map(r=>{const played=(history||[]).map(w=>w.rows.find(m=>m.roster_id===r.roster_id)).filter(m=>m&&m.matchup_id!=null&&m.points!=null&&Number.isFinite(Number(m.points)));const last=played.slice(-3),o=optimalRows.find(x=>x.r.roster_id===r.roster_id);return{r,season:games(r)?pf(r)/games(r):null,recent:last.length===3?last.reduce((s,m)=>s+Number(m.points),0)/3:null,optimal:o?.valid.length?o.valid.reduce((s,w)=>s+w.best,0)/o.valid.length:null}});const keys=[['season',.5],['recent',.3],['optimal',.2]],leaders=Object.fromEntries(keys.map(([k])=>[k,Math.max(0,...raw.map(x=>x[k]||0))]));contenderRows=raw.map(x=>{const valid=keys.filter(([k])=>x[k]!=null&&leaders[k]>0),weight=valid.reduce((s,[,w])=>s+w,0);return{...x,coverage:weight,index:weight?100*valid.reduce((s,[k,w])=>s+w*x[k]/leaders[k],0)/weight:null}}).sort((a,b)=>(b.index??-1)-(a.index??-1));$('ctList').innerHTML=contenderRows.map((x,i)=>row(`${i+1}. ${esc(teamName(x.r))}`,`Season ${x.season==null?'—':fmt(x.season)} · recent ${x.recent==null?'—':fmt(x.recent)} · optimal ${x.optimal==null?'—':fmt(x.optimal)} · coverage ${Math.round(x.coverage*100)}%`,x.index==null?'—':x.index.toFixed(1))).join('');renderContenderDetail()}
+function renderContenderDetail(){const x=contenderRows.find(x=>String(x.r.roster_id)===$('ctTeam').value);$('ctDetail').innerHTML=x?`<p class="muted">${esc(teamName(x.r))}: ${x.index?.toFixed(1)??'—'}/100 · ${Math.round(x.coverage*100)}% evidence coverage. Descriptive historical index, not title odds.</p>`:''}
+function renderAllPlay(){if(!D)return;const rs=D.rosters,ids=new Set(rs.map(r=>r.roster_id)),weeks=[];for(const w of history||[]){const scores=new Map();for(const m of w.rows){if(m.matchup_id==null||m.points==null||!Number.isFinite(Number(m.points))||scores.has(m.roster_id))break;scores.set(m.roster_id,Number(m.points))}if(scores.size===ids.size&&[...scores.keys()].every(id=>ids.has(id)))weeks.push({...w,scores})}allPlayRows=rs.map(r=>{const detail=weeks.map(w=>{const score=w.scores.get(r.roster_id),others=[...w.scores.entries()].filter(([id])=>id!==r.roster_id),wins=others.filter(([,v])=>score>v).length,ties=others.filter(([,v])=>score===v).length;const own=w.rows.find(m=>m.roster_id===r.roster_id),opp=w.rows.find(m=>m.roster_id!==r.roster_id&&m.matchup_id===own.matchup_id);return{week:w.week,score,wins,ties,losses:others.length-wins-ties,actual:opp?(score>Number(opp.points)?1:score===Number(opp.points)?.5:0):null}});const wins=detail.reduce((s,d)=>s+d.wins,0),ties=detail.reduce((s,d)=>s+d.ties,0),losses=detail.reduce((s,d)=>s+d.losses,0),pct=detail.length?(wins+ties*.5)/(detail.length*(rs.length-1)):null,actual=detail.every(d=>d.actual!=null)?detail.reduce((s,d)=>s+d.actual,0):null,expected=pct==null?null:pct*detail.length;return{r,detail,wins,ties,losses,pct,actual,expected,diff:actual==null?null:actual-expected}}).sort((a,b)=>(b.pct??-1)-(a.pct??-1));$('apBoard').innerHTML=allPlayRows.map((x,i)=>row(`${i+1}. ${esc(teamName(x.r))}`,`${x.wins}–${x.losses}${x.ties?'–'+x.ties:''} all-play`,x.pct==null?'—':(x.pct*100).toFixed(1)+'%')).join('');$('apLuck').innerHTML=[...allPlayRows].sort((a,b)=>(b.diff??-99)-(a.diff??-99)).map(x=>row(esc(teamName(x.r)),`Actual ${x.actual==null?'—':fmt(x.actual)} · expected ${x.expected==null?'—':fmt(x.expected)}`,x.diff==null?'—':(x.diff>=0?'+':'')+x.diff.toFixed(2))).join('');$('apQuality').textContent=`${weeks.length} complete weeks audited of ${history?.length??0} retrieved. Current week excluded.`;renderAllPlayDetail()}
+function renderAllPlayDetail(){const x=allPlayRows.find(x=>String(x.r.roster_id)===$('apTeam').value);$('apDetail').innerHTML=x?x.detail.map(d=>row(`Week ${d.week}`,`${fmt(d.score)} points · ${d.wins} teams beaten`,`${d.wins}–${d.losses}`)).join(''):'No completed weeks'}
+function renderPicks(){if(!D)return;const r=D.rosters,year=Number(D.league.season||2026),rounds=Number(D.league.settings?.draft_rounds||5),t=$('pickTeam'),y=$('pickYear'),oldT=t.value,oldY=y.value;t.innerHTML='<option value="all">All teams</option>'+r.map(x=>`<option value="${x.roster_id}">${esc(teamName(x))}</option>`).join('');t.value=oldT||'all';y.innerHTML='<option value="all">All future years</option>'+[year+1,year+2,year+3].map(v=>`<option value="${v}">${v}</option>`).join('');y.value=oldY||'all';let html='';for(let yr=year+1;yr<=year+3;yr++)for(let round=1;round<=rounds;round++)for(const original of r){const trade=D.picks.find(p=>Number(p.season)===yr&&Number(p.round)===round&&Number(p.roster_id)===original.roster_id),owner=trade?.owner_id??original.roster_id;if((t.value!=='all'&&String(owner)!==t.value)||(y.value!=='all'&&String(yr)!==y.value))continue;html+=row(`${yr} · Round ${round}`,`Original: ${esc(teamName(original))}`,esc(teamName(r.find(x=>String(x.roster_id)===String(owner))))) }$('picksList').innerHTML=html||'No picks match your filters'}
+function renderActivity(){if(!D)return;$('activityList').innerHTML=D.transactions.length?D.transactions.slice().sort((a,b)=>(b.created||0)-(a.created||0)).slice(0,25).map(t=>row(esc(t.type||'Transaction'),esc(t.status||''),t.created?new Date(t.created).toLocaleDateString():'')).join(''):'No current-week transactions';const grouped={};for(const m of D.matchups)(grouped[m.matchup_id]??=[]).push(m);$('matchups').innerHTML=Object.values(grouped).map(pair=>row(pair.map(m=>esc(teamName(D.rosters.find(r=>r.roster_id===m.roster_id)))).join(' vs '),'',pair.map(m=>fmt(m.points)).join(' – '))).join('')||'No matchup scores'}
+function populateTrade(){if(!D)return;const partner=$('tlPartner'),oldP=partner.value,oldG=$('tlGive').value,oldR=$('tlGet').value;partner.innerHTML=D.rosters.filter(r=>r.roster_id!==ME).map(r=>`<option value="${r.roster_id}">${esc(teamName(r))}</option>`).join('');if([...partner.options].some(o=>o.value===oldP))partner.value=oldP;const mine=D.rosters.find(r=>r.roster_id===ME),other=D.rosters.find(r=>String(r.roster_id)===partner.value);$('tlGive').innerHTML='<option value="">No player / pick only</option>'+(mine?.players||[]).map(id=>`<option value="${esc(id)}">${esc(pname(id))} · ${esc(pos(id))}</option>`).join('');$('tlGet').innerHTML='<option value="">No player / pick only</option>'+(other?.players||[]).map(id=>`<option value="${esc(id)}">${esc(pname(id))} · ${esc(pos(id))}</option>`).join('');if([...$('tlGive').options].some(o=>o.value===oldG))$('tlGive').value=oldG;if([...$('tlGet').options].some(o=>o.value===oldR))$('tlGet').value=oldR;renderTrade()}
+function averages(){const map=new Map();for(const w of history||[])for(const m of w.rows){if(m.matchup_id==null||!m.players_points)continue;for(const [id,raw] of Object.entries(m.players_points)){if(raw==null||raw===''||!Number.isFinite(Number(raw)))continue;const v=map.get(id)||{sum:0,n:0,positive:0,zero:0};v.sum+=Number(raw);v.n++;if(Number(raw)>0)v.positive++;if(Number(raw)===0)v.zero++;map.set(id,v)}}return map}
+function renderTrade(){if(!D)return;const mine=D.rosters.find(r=>r.roster_id===ME),other=D.rosters.find(r=>String(r.roster_id)===$('tlPartner').value),out=$('tlGive').value,inc=$('tlGet').value;if(!mine||!other)return;const counts=ids=>{const c={};for(const id of ids)c[pos(id)]=(c[pos(id)]||0)+1;return c};const before=counts(mine.players||[]),after=counts((mine.players||[]).filter(id=>id!==out).concat(inc?[inc]:[]));$('tlImpact').innerHTML=`<b>${esc(teamName(mine))} ↔ ${esc(teamName(other))}</b><p>Send: ${esc(out?pname(out):'No player')} · Receive: ${esc(inc?pname(inc):'No player')}</p><p>Roster size ${(mine.players||[]).length} → ${(mine.players||[]).length-(out?1:0)+(inc?1:0)}</p><p class="tiny">${Object.keys({...before,...after}).filter(p=>before[p]!==after[p]).map(p=>`${esc(p)}: ${before[p]||0} → ${after[p]||0}`).join(' · ')||'No position-count changes'}</p>`;renderLineup();renderValues()}
+function renderLineup(){if(!D||!players||!history){$('liResult').textContent='Waiting for roster, player directory and weekly data…';return}const mine=D.rosters.find(r=>r.roster_id===ME),out=$('tlGive').value,inc=$('tlGet').value;if(!out&&!inc){$('liResult').textContent='Choose a player to send or receive.';$('liAudit').textContent='Choose an incoming player.';$('liProvenance').textContent='Choose an incoming player.';return}const avg=averages(),override=new Map();for(const [id,field] of [[out,'liGiveProjection'],[inc,'liGetProjection']]){const raw=$(field).value.trim();if(!id||raw==='')continue;const v=Number(raw);if(!Number.isFinite(v)||v<0){$('liResult').textContent='Manual estimates must be nonnegative numbers.';return}override.set(id,v)}const active=(mine.players||[]).map(String).filter(id=>![...(mine.reserve||[]),...(mine.taxi||[])].map(String).includes(id)),next=active.filter(id=>id!==out);if(inc&&!next.includes(inc))next.push(inc);const suspect=id=>{const v=avg.get(id);return v&&v.n>=2&&v.positive===0&&!override.has(id)};const samples=avg.get(inc);if(inc&&suspect(inc)){$('liResult').innerHTML=`<b class="warn">Comparison withheld:</b> ${esc(pname(inc))} has ${samples.n} zero-only samples. Verify Sleeper scoring or supply a documented manual estimate.`}else{const score=id=>override.has(id)?override.get(id):suspect(id)?null:avg.has(id)?avg.get(id).sum/avg.get(id).n:null,slots=(D.league.roster_positions||[]).filter(s=>s!=='BN'),a=optimize(active,slots,score),b=optimize(next,slots,score);$('liResult').innerHTML=a&&b?`<b>Historical baseline: ${fmt(a.score)} points/week</b><p>After trade: ${fmt(b.score)} points/week</p><b>Difference: ${b.score-a.score>=0?'+':''}${fmt(b.score-a.score)} points/week</b><p class="tiny">Historical averages only; availability, injuries and future projections not modeled. Zero-only histories are excluded pending verification.</p>`:'<b>Insufficient verified scoring data to fill both legal lineups.</b>'}if(!inc){$('liAudit').textContent='Choose an incoming player.';$('liProvenance').textContent='Choose an incoming player.';return}const entries=[];let rostered=0,started=0,zero=0,positive=0,missing=0;for(const w of history){const m=w.rows.find(m=>(m.players||[]).map(String).includes(inc));if(!m){entries.push(`W${w.week}: not on matchup roster`);continue}rostered++;if((m.starters||[]).map(String).includes(inc))started++;const raw=m.players_points?.[inc];if(raw==null||raw===''||!Number.isFinite(Number(raw))){missing++;entries.push(`W${w.week}: score missing`)}else{if(Number(raw)===0)zero++;if(Number(raw)>0)positive++;entries.push(`W${w.week}: ${fmt(raw)} pts · ${(m.starters||[]).map(String).includes(inc)?'starter':'bench'}`)}}$('liAudit').innerHTML=`<b>${esc(pname(inc))}</b><p>Recorded scoring average: ${samples?fmt(samples.sum/samples.n)+' PPG':'Unavailable'} · ${samples?.n||0} samples</p>${suspect(inc)?'<p class="warn">Zero-only scoring history: source cannot be verified from this feed.</p>':''}<p class="tiny">Historical data is not a forecast.</p>`;$('liProvenance').innerHTML=`<b>Raw Sleeper source audit</b><p>${history.length} completed weeks checked · ${rostered} rostered · ${started} started · ${positive} positive · ${zero} zero · ${missing} missing</p><p class="tiny">${entries.map(esc).join('<br>')}</p>`}
+function renderValues(){const a=$('tlValueGive').value,b=$('tlValueGet').value;if(a===''||b===''){$('tlValueResult').textContent='Enter both values to compare.';return}const x=Number(a),y=Number(b);$('tlValueResult').innerHTML=Number.isFinite(x)&&Number.isFinite(y)&&x>=0&&y>=0?`<b>Difference: ${y-x>=0?'+':''}${fmt(y-x)}</b><p class="tiny">Source: ${esc($('tlValueSource').value||'not documented')}. Arithmetic only, not a trade grade.</p>`:'Invalid values'}
+function init(){for(const b of document.querySelectorAll('#nav button'))b.addEventListener('click',()=>{document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('main section').forEach(s=>s.classList.toggle('hidden',s.id!==b.dataset.tab))});$('refresh').addEventListener('click',sync);for(const [id,fn] of [['teamSelect',renderTeam],['powerTeam',renderPowerContext],['optTeam',renderOptimalDetail],['ctTeam',renderContenderDetail],['apTeam',renderAllPlayDetail],['pickTeam',renderPicks],['pickYear',renderPicks],['tlGive',renderTrade],['tlGet',renderTrade]])$(id).addEventListener('change',fn);$('tlPartner').addEventListener('change',()=>{$('tlGet').value='';populateTrade()});for(const id of ['liGiveProjection','liGetProjection'])$(id).addEventListener('input',renderLineup);for(const id of ['tlValueGive','tlValueGet','tlValueSource'])$(id).addEventListener('input',renderValues);$('compare').addEventListener('click',()=>{const a=$('give').value.trim(),b=$('get').value.trim();if(!a||!b){$('tradeResult').textContent='Enter both sides first.';return}try{localStorage.setItem('speakeasyTrade',JSON.stringify({give:a,get:b}))}catch(e){}$('tradeResult').textContent=`Saved: Give ${a} · Receive ${b}`});$('tlSave').addEventListener('click',()=>{try{localStorage.setItem('speakeasyTradeScenario',JSON.stringify({partner:$('tlPartner').value,give:$('tlGive').value,get:$('tlGet').value,valueGive:$('tlValueGive').value,valueGet:$('tlValueGet').value,source:$('tlValueSource').value}));$('tlSaveStatus').textContent='Saved in this browser.'}catch(e){$('tlSaveStatus').textContent='Local save failed: '+e.message}});try{const c=JSON.parse(localStorage.getItem('speakeasyData')||'null');if(c?.league?.league_id===LEAGUE){D=c;render();status('Cached snapshot');loadHistory(c.league.settings?.leg||1);loadPlayers()}const t=JSON.parse(localStorage.getItem('speakeasyTrade')||'null');if(t){$('give').value=t.give||'';$('get').value=t.get||''}const s=JSON.parse(localStorage.getItem('speakeasyTradeScenario')||'null');if(s){$('tlValueGive').value=s.valueGive||'';$('tlValueGet').value=s.valueGet||'';$('tlValueSource').value=s.source||'';renderValues()}}catch(e){}sync()}
+window.addEventListener('error',e=>{status('Script error','error');$('alert').textContent='JavaScript error: '+e.message+' · line '+e.lineno});
+
+// Phase 12: additive UI. The working Phase 11 scoring and source audit are left intact.
+const p12Ids=['p12Weight','p12OutHealth','p12InHealth','p12OutPPG','p12InPPG'];
+const p12Num=(id)=>{const raw=$(id).value.trim();if(raw==='')return null;const n=Number(raw);return Number.isFinite(n)&&n>=0?n:NaN};
+const p12Clamp=x=>Math.max(0,Math.min(100,x));
+function p12Historical(id){
+ if(!id||!history)return null;
+ const vals=[];
+ for(const w of history){for(const m of w.rows||[]){if(!(m.players||[]).map(String).includes(String(id)))continue;
+ const raw=m.players_points?.[id];if(raw!=null&&raw!==''&&Number.isFinite(Number(raw)))vals.push(Number(raw));break;}}
+ const positive=vals.filter(x=>x>0);
+ return {all:vals.length,positive:positive.length,zeros:vals.filter(x=>x===0).length,mean:positive.length?positive.reduce((a,b)=>a+b,0)/positive.length:null};
+}
+function p12Render(){
+ if(!$('p12Weight'))return;
+ const weight=Number($('p12Weight').value)/100;
+ $('p12WeightLabel').textContent=Math.round(weight*100)+'%';
+ $('p12MixLabel').textContent=Math.round(weight*100)+'% win now · '+Math.round((1-weight)*100)+'% dynasty';
+ if(!D||!players||!history){$('p12Lineup').textContent='Waiting for synced rosters, player directory and completed-week scores.';$('p12WinScore').textContent='—';$('p12DynScore').textContent='—';$('p12Overall').textContent='—';$('p12Verdict').textContent='Scores require verified inputs.';return;}
+ const mine=D.rosters.find(r=>r.roster_id===ME),out=$('tlGive').value,inc=$('tlGet').value;
+ if(!mine||(!out&&!inc)){$('p12Lineup').textContent='Choose at least one trade player.';$('p12WinScore').textContent='—';$('p12DynScore').textContent='—';$('p12Overall').textContent='—';$('p12Verdict').textContent='Select players and enter values to evaluate the trade.';return;}
+ const ho=p12Historical(out),hi=p12Historical(inc),mo=p12Num('p12OutPPG'),mi=p12Num('p12InPPG');
+ if(Number.isNaN(mo)||Number.isNaN(mi)){$('p12Lineup').textContent='Projected points must be nonnegative numbers.';return;}
+ const projection=new Map();
+ if(out&&(mo!==null||ho?.mean!==null&&ho?.mean!==undefined))projection.set(String(out),mo!==null?mo:ho.mean);
+ if(inc&&(mi!==null||hi?.mean!==null&&hi?.mean!==undefined))projection.set(String(inc),mi!==null?mi:hi.mean);
+ const av=averages();
+ const pts=id=>projection.has(String(id))?projection.get(String(id)):(av.has(String(id))&&av.get(String(id)).positive>0?av.get(String(id)).sum/av.get(String(id)).n:null);
+ const disabled=new Set([...(mine.reserve||[]),...(mine.taxi||[])].map(String));
+ const original=(mine.players||[]).map(String).filter(id=>!disabled.has(id));
+ const before=original.filter(id=>!(id===String(out)&&$('p12OutHealth').value==='out'));
+ const after=original.filter(id=>id!==String(out));
+ if(inc&&$('p12InHealth').value!=='out'&&!after.includes(String(inc)))after.push(String(inc));
+ // Baseline uses the existing roster. Availability selection for the outgoing player affects both sides consistently.
+ const baseline=original.filter(id=>id!==String(out)||$('p12OutHealth').value!=='out');
+ const slots=(D.league.roster_positions||[]).filter(x=>x!=='BN');
+ const a=optimize(baseline,slots,pts),b=optimize(after,slots,pts);
+ const valid=!!(a&&b&&Number.isFinite(a.score)&&Number.isFinite(b.score));
+ const delta=valid?b.score-a.score:null;
+ const win=valid?p12Clamp(50+delta*5):null;
+ const vOut=p12Num('tlValueGive'),vIn=p12Num('tlValueGet');
+ const dynasty=vOut!==null&&vIn!==null&&Number.isFinite(vOut)&&Number.isFinite(vIn)&&vOut+vIn>0?p12Clamp(50+25*(vIn-vOut)/((vIn+vOut)/2)):null;
+ const overall=win!==null&&dynasty!==null?weight*win+(1-weight)*dynasty:weight===1&&win!==null?win:weight===0&&dynasty!==null?dynasty:null;
+ $('p12WinScore').textContent=win===null?'Insufficient data':win.toFixed(1)+'/100';
+ $('p12DynScore').textContent=dynasty===null?'Enter both values':dynasty.toFixed(1)+'/100';
+ $('p12Overall').textContent=overall===null?'—':overall.toFixed(1)+'/100';
+ const notes=[];
+ if(out)notes.push(`${esc(pname(out))}: ${ho?.positive||0} positive / ${ho?.zeros||0} zero games${mo!==null?' · manual estimate':''}`);
+ if(inc)notes.push(`${esc(pname(inc))}: ${hi?.positive||0} positive / ${hi?.zeros||0} zero games${mi!==null?' · manual estimate':''}`);
+ $('p12Lineup').innerHTML=`<b>Projected optimized lineup</b><p>Before: ${valid?fmt(a.score)+' PPG':'unavailable'} · After: ${valid?fmt(b.score)+' PPG':'unavailable'}</p><p><b>Estimated change: ${delta===null?'unavailable':(delta>=0?'+':'')+fmt(delta)+' PPG'}</b></p><p class="tiny">${notes.join('<br>')}. Injured/unavailable selections are excluded as specified. Other roster players use recorded matchup averages. No injury feed or future game prediction is implied.</p>`;
+ let verdict='Not enough information for a combined verdict. Enter both dynasty totals and establish usable lineup projections.';
+ if(overall!==null)verdict=overall>=57?'Favors acquiring the incoming assets under these assumptions.':overall<=43?'Favors keeping the outgoing assets under these assumptions.':'Close trade under these assumptions; roster fit and uncertainty matter.';
+ if(win!==null&&dynasty!==null&&((win>53&&dynasty<47)||(win<47&&dynasty>53)))verdict+=' Win-now and dynasty evaluations disagree.';
+ $('p12Verdict').textContent=verdict;
+}
+const p12OldTrade=renderTrade;
+renderTrade=function(){p12OldTrade();p12Render()};
+const p12OldLineup=renderLineup;
+renderLineup=function(){p12OldLineup();p12Render()};
+const p12OldValues=renderValues;
+renderValues=function(){p12OldValues();p12Render()};
+for(const id of p12Ids)$(id).addEventListener(id==='p12Weight'||id.includes('Health')?'change':'input',p12Render);
+// Restore only the preference, not potentially stale player-specific injury assumptions.
+try{const saved=Number(localStorage.getItem('speakeasyPhase12Weight'));if(localStorage.getItem('speakeasyPhase12Weight')!==null&&Number.isFinite(saved)&&saved>=0&&saved<=100)$('p12Weight').value=String(saved)}catch(e){}
+$('p12Weight').addEventListener('input',()=>{try{localStorage.setItem('speakeasyPhase12Weight',$('p12Weight').value)}catch(e){}p12Render()});
+
+
+// Automatic dynasty market board (not a projection or injury feed).
+const MARKET_BASE='https://api.statchasers.com/api/v1/dynasty/values';
+const market={players:new Map(),picks:[],updated:'',state:'loading',error:''};
+function marketPlayerValue(id){return market.players.has(String(id))?String(market.players.get(String(id))):''}
+function marketPickValue(label){
+ const q=String(label||'').toLowerCase().replace(/[-_]/g,' ').replace(/\s+/g,' ').trim();
+ const year=q.match(/20\d{2}/)?.[0], round=q.match(/(?:\b([1-4])(?:st|nd|rd|th)?\b|\b(first|second|third|fourth)\b)/);
+ if(!year||!round)return null;
+ const r=round[1]?Number(round[1]):({first:1,second:2,third:3,fourth:4}[round[2]]);
+ const tier=r===1?(q.includes('early')?'early':q.includes('mid')?'mid':q.includes('late')?'late':null):null;
+ if(r===1&&!tier)return null; // Don't invent first-round pick position.
+ const pick=market.picks.find(p=>Number(p.season)===Number(year)&&Number(p.round)===r&&(r!==1||String(p.tier).toLowerCase()===tier));
+ return pick&&Number.isFinite(Number(pick.value))?Number(pick.value):null;
+}
+function marketApply(){
+ if(typeof p13!=='undefined'){
+  for(const side of ['out','in'])for(const x of p13[side])if(x.valueMode!=='manual') {x.value=marketPlayerValue(x.id);x.valueMode='auto'}
+  p13Render();
+ }
+ const label=document.getElementById('marketStatus');
+ if(label){const count=market.players.size;label.textContent=market.state==='ready'?`✓ ${count.toLocaleString()} player values loaded · 10-team SF / PPR / +0.5 TEP · Updated ${market.updated?new Date(market.updated).toLocaleString():'date unavailable'}. Manual overrides remain editable.`:market.state==='loading'?'Loading StatChasers dynasty values…':`Automatic values unavailable: ${market.error}. You can retry or enter values manually.`}
+ const source=document.getElementById('p13Source');if(source&&market.state==='ready'&&(!source.value||source.value.startsWith('StatChasers')))source.value='StatChasers · 10-team SF PPR +0.5 TEP · '+(market.updated||'date unknown');
+}
+async function marketLoad(force=false){
+ const bench=Math.max(0,Math.min(40,Number(document.getElementById('marketBench')?.value||15)));
+ market.state='loading';marketApply();
+ const url=MARKET_BASE+'?teams=10&qb=sf&scoring=ppr&tep=0.5&bench='+bench;
+ try{
+  const res=await fetch(url,{cache:force?'no-store':'default'});
+  if(!res.ok)throw Error('HTTP '+res.status);
+  const board=await res.json();
+  if(!Array.isArray(board.players)||!Array.isArray(board.picks)||board.format?.teams!==10||board.format?.qb!=='sf'||board.format?.scoring!=='ppr'||Number(board.format?.tep)!==0.5||Number(board.format?.bench)!==bench)throw Error('Unexpected market feed format');
+  market.players=new Map(board.players.filter(p=>p.sleeper_id!=null&&Number.isFinite(Number(p.value))).map(p=>[String(p.sleeper_id),Number(p.value)]));
+  market.picks=board.picks;market.updated=board.updated_at||'';market.state='ready';market.error='';
+ }catch(err){market.state='error';market.error=err?.message||'Network request blocked';}
+ marketApply();
+}
+window.addEventListener('DOMContentLoaded',()=>{
+ document.getElementById('marketRefresh')?.addEventListener('click',()=>marketLoad(true));
+ document.getElementById('marketBench')?.addEventListener('change',()=>marketLoad(true));
+ const name=document.getElementById('p13PickName'),val=document.getElementById('p13PickValue');
+ name?.addEventListener('input',()=>{const found=marketPickValue(name.value);if(found!==null){val.value=String(found);val.dataset.auto='true'}else if(val.dataset.auto==='true'){val.value='';val.dataset.auto='false'}});
+ val?.addEventListener('input',()=>{val.dataset.auto='false'});
+ marketLoad();
+});
+// Phase 13: package trading. All assumptions are user-provided; no fabricated valuations.
+const p13={out:[],in:[],picks:[]};
+const p13Safe=(id)=>String(id).replace(/[^a-zA-Z0-9_-]/g,'_');
+function p13Populate(){
+ if(!D||!players)return;
+ const partner=$('p13Partner'),previous=partner.value;
+ const other=D.rosters.filter(r=>r.roster_id!==ME);
+ partner.innerHTML=other.map(r=>`<option value="${r.roster_id}">${esc(teamName(r))}</option>`).join('');
+ partner.value=other.some(r=>String(r.roster_id)===previous)?previous:String(other[0]?.roster_id||'');
+ p13PopulatePlayers();
+}
+function p13PopulatePlayers(){
+ if(!D||!players)return;
+ const mine=D.rosters.find(r=>r.roster_id===ME);
+ const other=D.rosters.find(r=>String(r.roster_id)===$('p13Partner').value);
+ for(const [id,roster] of [['p13SendSelect',mine],['p13ReceiveSelect',other]]){
+ const select=$(id),old=select.value;
+ const opts=(roster?.players||[]).map(String).sort((a,b)=>pname(a).localeCompare(pname(b)));
+ select.innerHTML='<option value="">Choose player…</option>'+opts.map(pid=>`<option value="${esc(pid)}">${esc(pname(pid))} (${esc(pos(pid))})</option>`).join('');
+ if(opts.includes(old))select.value=old;
+ }
+ p13Render();
+}
+function p13Add(side){
+ const select=$(side==='out'?'p13SendSelect':'p13ReceiveSelect');
+ const id=select.value;
+ if(!id){$('p13Result').textContent='Choose a player from the '+(side==='out'?'Send':'Receive')+' dropdown first.';return}
+ if(p13[side].some(x=>x.id===id)){$('p13Result').textContent=pname(id)+' is already in this package. Choose another player.';return}
+ p13[side].push({id,value:marketPlayerValue(id),ppg:'',availability:'unknown',valueMode:'auto'});
+ p13Render();
+ const next=Array.from(select.options).find(o=>o.value&&!p13[side].some(x=>x.id===o.value));
+ select.value=next?next.value:'';
+}
+function p13Remove(side,index){p13[side].splice(index,1);p13Render()}
+function p13Change(side,index,key,value){if(p13[side]?.[index]){p13[side][index][key]=value;if(key==='value')p13[side][index].valueMode='manual';p13Compute()}}
+function p13AssetRows(side){return p13[side].map((x,i)=>`<div class="row" style="display:block;padding:12px 0"><b>${esc(pname(x.id))}</b> <span class="tiny">${esc(pos(x.id))}</span><button class="secondary" style="float:right" data-p13remove="${side}:${i}">Remove</button><label>Dynasty value <span class="tiny">${x.valueMode==='manual'?'Manual override':x.value!==''?'Auto · StatChasers':'Unavailable'}</span></label><div class="fo-pro-actions"><input type="number" min="0" placeholder="Not available" value="${esc(x.value)}" data-p13="${side}:${i}:value"><button type="button" class="secondary" data-market-reset="${side}:${i}">↻ Auto</button></div><label>Projected PPG (optional)</label><input type="number" min="0" step="0.1" placeholder="Use positive-game average" value="${esc(x.ppg)}" data-p13="${side}:${i}:ppg"><label>Availability</label><select data-p13="${side}:${i}:availability"><option value="unknown" ${x.availability==='unknown'?'selected':''}>Unknown / not assessed</option><option value="active" ${x.availability==='active'?'selected':''}>Expected to play</option><option value="out" ${x.availability==='out'?'selected':''}>Unavailable</option></select></div>`).join('')}
+function p13Render(){
+ if(!$('p13Assets'))return;
+ $('p13Assets').innerHTML=`<b>Players you send</b>${p13AssetRows('out')||'<p class="tiny">None selected</p>'}<b>Players you receive</b>${p13AssetRows('in')||'<p class="tiny">None selected</p>'}<b>Additional assets</b>${p13.picks.map((x,i)=>`<div class="row"><span>${x.side==='in'?'Receive':'Send'}: ${esc(x.name)} · ${fmt(x.value)}</span><button class="secondary" data-p13pickremove="${i}">Remove</button></div>`).join('')||'<p class="tiny">None</p>'}`;
+ $('p13Assets').querySelectorAll('[data-p13]').forEach(el=>el.addEventListener(el.tagName==='SELECT'?'change':'input',()=>{const [side,i,key]=el.dataset.p13.split(':');p13Change(side,Number(i),key,el.value)}));
+ $('p13Assets').querySelectorAll('[data-market-reset]').forEach(el=>el.addEventListener('click',()=>{const [side,i]=el.dataset.marketReset.split(':');const x=p13[side][Number(i)];if(x){x.valueMode='auto';x.value=marketPlayerValue(x.id);p13Render()}}));
+ $('p13Assets').querySelectorAll('[data-p13remove]').forEach(el=>el.addEventListener('click',()=>{const [side,i]=el.dataset.p13remove.split(':');p13Remove(side,Number(i))}));
+ $('p13Assets').querySelectorAll('[data-p13pickremove]').forEach(el=>el.addEventListener('click',()=>{p13.picks.splice(Number(el.dataset.p13pickremove),1);p13Render()}));
+ p13Compute();
+}
+function p13Compute(){
+ const missing=()=>{$('p13Win').textContent='—';$('p13Dyn').textContent='—';$('p13Overall').textContent='—'};
+ if(!D||!players||!history){missing();$('p13Result').textContent='Waiting for league data and historical matchups.';return}
+ if(!p13.out.length&&!p13.in.length&&!p13.picks.length){missing();$('p13Result').textContent='Add players or picks to begin.';return}
+ const mine=D.rosters.find(r=>r.roster_id===ME),partner=D.rosters.find(r=>String(r.roster_id)===$('p13Partner').value);
+ const own=new Set((mine?.players||[]).map(String)),theirs=new Set((partner?.players||[]).map(String));
+ if(p13.out.some(x=>!own.has(x.id))||p13.in.some(x=>!theirs.has(x.id))){missing();$('p13Result').textContent='A selected player is no longer on the corresponding roster. Remove that player or select the correct trade partner.';return}
+ const assumptions=[...p13.out,...p13.in],invalid=assumptions.some(x=>(x.ppg!==''&&(!Number.isFinite(Number(x.ppg))||Number(x.ppg)<0))||(x.value!==''&&(!Number.isFinite(Number(x.value))||Number(x.value)<0)));
+ if(invalid){missing();$('p13Result').textContent='Player values and projections must be nonnegative numbers.';return}
+ const projections=new Map(),unavailable=new Set();
+ for(const x of assumptions){if(x.availability==='out')unavailable.add(x.id);if(x.ppg!=='')projections.set(x.id,Number(x.ppg));else{const h=p12Historical(x.id);if(h?.mean!==null&&h?.mean!==undefined)projections.set(x.id,h.mean)}}
+ const av=averages();
+ const score=id=>projections.has(String(id))?projections.get(String(id)):(av.has(String(id))&&av.get(String(id)).positive>0?av.get(String(id)).sum/av.get(String(id)).n:null);
+ const reserve=new Set([...(mine?.reserve||[]),...(mine?.taxi||[])].map(String));
+ const base=(mine?.players||[]).map(String).filter(id=>!reserve.has(id)&&!unavailable.has(id));
+ const after=base.filter(id=>!p13.out.some(x=>x.id===id));
+ for(const x of p13.in)if(!unavailable.has(x.id)&&!after.includes(x.id))after.push(x.id);
+ const slots=(D.league.roster_positions||[]).filter(s=>s!=='BN');
+ const beforeLine=optimize(base,slots,score),afterLine=optimize(after,slots,score);
+ const valid=!!(beforeLine&&afterLine&&Number.isFinite(beforeLine.score)&&Number.isFinite(afterLine.score));
+ const delta=valid?afterLine.score-beforeLine.score:null;
+ const win=valid?p12Clamp(50+5*delta):null;
+ const missingValues=assumptions.some(x=>x.value==='');
+ const outValue=p13.out.reduce((a,x)=>a+Number(x.value||0),0)+p13.picks.filter(x=>x.side==='out').reduce((a,x)=>a+x.value,0);
+ const inValue=p13.in.reduce((a,x)=>a+Number(x.value||0),0)+p13.picks.filter(x=>x.side==='in').reduce((a,x)=>a+x.value,0);
+ const dyn=!missingValues&&outValue+inValue>0?p12Clamp(50+25*(inValue-outValue)/((inValue+outValue)/2)):null;
+ const w=Number($('p12Weight').value)/100;
+ const overall=win!==null&&dyn!==null?w*win+(1-w)*dyn:w===1?win:w===0?dyn:null;
+ $('p13Win').textContent=win===null?'Insufficient data':win.toFixed(1)+'/100';
+ $('p13Dyn').textContent=dyn===null?'Enter asset values':dyn.toFixed(1)+'/100';
+ $('p13Overall').textContent=overall===null?'—':overall.toFixed(1)+'/100';
+ $('p13Mix').textContent=Math.round(w*100)+'% win now · '+Math.round((1-w)*100)+'% dynasty';
+ let verdict=overall===null?'Combined verdict withheld until both dimensions are usable.':overall>=57?'Favors receiving this package under these assumptions.':overall<=43?'Favors keeping the outgoing package under these assumptions.':'Close package under these assumptions.';
+ if(win!==null&&dyn!==null&&((win>53&&dyn<47)||(win<47&&dyn>53)))verdict+=' Win-now and dynasty assessments disagree.';
+ const noSamples=assumptions.filter(x=>x.availability!=='out'&&x.ppg===''&&p12Historical(x.id)?.mean==null).map(x=>pname(x.id));
+ $('p13Result').innerHTML=`<b>${esc(verdict)}</b><p>Optimized lineup: ${valid?fmt(beforeLine.score)+' → '+fmt(afterLine.score)+' PPG ('+(delta>=0?'+':'')+fmt(delta)+' PPG)':'not enough usable player scores'}</p><p>Dynasty totals: send ${fmt(outValue)} · receive ${fmt(inValue)}${missingValues?' · some player values missing':''}</p>${noSamples.length?`<p class="tiny">No positive-game history for: ${esc(noSamples.join(', '))}. Add manual PPG assumptions for a more useful win-now comparison.</p>`:''}<p class="tiny">Value source: ${esc($('p13Source').value||'not documented')}. Picks contribute to dynasty totals only. Scores are illustrative and not verified market prices.</p>`;
+}
+$('p13Partner').addEventListener('change',()=>{p13.in=[];p13PopulatePlayers()});
+$('p13AddSend').addEventListener('click',()=>p13Add('out'));
+$('p13AddReceive').addEventListener('click',()=>p13Add('in'));
+$('p13AddPick').addEventListener('click',()=>{const name=$('p13PickName').value.trim(),raw=$('p13PickValue').value,value=Number(raw);if(!name||raw===''||!Number.isFinite(value)||value<0){$('p13Result').textContent='Enter an asset description and a nonnegative value. Recognized picks auto-fill after typing.';return}p13.picks.push({name,side:$('p13PickDirection').value,value});$('p13PickName').value='';$('p13PickValue').value='';p13Render()});
+$('p13Clear').addEventListener('click',()=>{p13.out=[];p13.in=[];p13.picks=[];p13Render()});
+$('p13Source').addEventListener('input',p13Compute);
+$('p12Weight').addEventListener('input',p13Compute);
+const p13PreviousRender=render;
+render=function(){p13PreviousRender();p13Populate()};
+// The first sync runs asynchronously; populate immediately if cached data already exists.
+p13Populate();
+
+
+// Front Office Pro consolidated upgrade. Phase 13 core remains intact.
+const foState={scenario:'current',returnPPG:{},saved:[],last:null};
+const foStore='speakeasyFrontOfficeProV1';
+function foNum(x){return x!==''&&x!==null&&Number.isFinite(Number(x))&&Number(x)>=0?Number(x):null}
+function foRead(){try{const v=JSON.parse(localStorage.getItem(foStore)||'{}');foState.saved=Array.isArray(v.saved)?v.saved.slice(0,20):[];foState.returnPPG=v.returnPPG&&typeof v.returnPPG==='object'?v.returnPPG:{};foState.scenario=['current','healthy','conservative'].includes(v.scenario)?v.scenario:'current'}catch(e){}}
+function foWrite(){try{localStorage.setItem(foStore,JSON.stringify({saved:foState.saved.slice(0,20),returnPPG:foState.returnPPG,scenario:foState.scenario}))}catch(e){}}
+foRead();
+function foInit(){
+ const card=document.createElement('div');card.className='panel fo-pro';card.id='foPro';
+ card.innerHTML=`<h2>Front Office Pro · Decision Center</h2>
+ <p class="muted">An injury-aware scenario calculator. Dynasty values come from StatChasers when available; projections are historical or manually estimated.</p>
+ <label for="foScenario">Lineup scenario</label><select id="foScenario"><option value="current">Current availability (exclude players marked unavailable)</option><option value="healthy">When healthy (use entered return projections)</option><option value="conservative">Conservative (discount estimates by 15%)</option></select>
+ <p class="tiny">An unknown availability setting does not confirm a player is healthy. Zero-only records require an explicit return projection to evaluate a healthy scenario.</p>
+ <div id="foAudit" class="notice" aria-live="polite">Select a package to see data coverage.</div>
+ <div class="fo-pro-grid"><div class="fo-pro-tile"><div class="tiny">Current scenario lineup change</div><div class="fo-stat" id="foDelta">—</div></div><div class="fo-pro-tile"><div class="tiny">Model confidence</div><div class="fo-stat" id="foConfidence">—</div></div></div>
+ <div class="fo-pro-grid" style="margin-top:10px"><div class="fo-pro-tile"><div class="tiny">Scenario win-now score</div><div class="fo-stat" id="foWin">—</div></div><div class="fo-pro-tile"><div class="tiny">Scenario combined score</div><div class="fo-stat" id="foCombined">—</div></div></div>
+ <div id="foRisk" class="notice" style="margin-top:12px">Player-level caveats appear here.</div>
+ <details open><summary>Return-to-play projections &amp; sensitivity</summary><p class="tiny">Use a manually researched expected PPG for players with missing or zero-only history. This never changes their dynasty value. Optional conservative scenario reduces estimated PPG by 15%.</p><div id="foReturnInputs"></div><div id="foSensitivity" class="tiny"></div></details>
+ <details><summary>Trade package snapshot &amp; saved scenarios</summary><div class="fo-pro-actions"><button class="secondary" id="foSave">Save package</button><button class="secondary" id="foExport">Export JSON</button><button class="secondary" id="foCopy">Copy summary</button></div><div id="foSaved"></div><p class="tiny">Saved packages stay on this device. Export a backup before clearing browser storage. Importing external files is intentionally disabled.</p></details>
+ <details><summary>Data sources &amp; assumptions</summary><div id="foDiagnostics" class="tiny"></div><p class="tiny">Sleeper: rosters, scoring settings, matchup records, player metadata and picks. Dynasty values: StatChasers feed when available, with manual overrides. Return projections: manual inputs. Missing data is never interpreted as a confirmed injury. Model scores are heuristics, not probabilities.</p></details>`;
+ const target=$('p13Clear');target.closest('.panel').insertAdjacentElement('afterend',card);
+ $('foScenario').value=foState.scenario;
+ $('foScenario').addEventListener('change',()=>{foState.scenario=$('foScenario').value;foWrite();foUpdate()});
+ $('foSave').addEventListener('click',foSave);
+ $('foExport').addEventListener('click',foExport);
+ $('foCopy').addEventListener('click',()=>{const t=foSummary();if(navigator.clipboard?.writeText)navigator.clipboard.writeText(t).then(()=>{$('foRisk').textContent='Summary copied.'}).catch(()=>window.prompt('Copy summary',t));else window.prompt('Copy summary',t)});
+ foUpdate();
+}
+function foPackage(){return [...p13.out.map(x=>({...x,side:'out'})),...p13.in.map(x=>({...x,side:'in'}))]}
+function foCoverage(x){const h=p12Historical(x.id);return {positive:h?.positive||0,zeros:h?.zeros||0,mean:h?.mean??null,all:h?.all||0}}
+function foEstimate(x){
+ if(x.availability==='out'&&foState.scenario==='current')return {value:null,source:'excluded (manual unavailable)',excluded:true};
+ let value=foNum(x.ppg),source=value!==null?'manual projected PPG':null;
+ if(value===null&&foState.scenario!=='current'){value=foNum(foState.returnPPG[x.id]);if(value!==null)source='manual return-to-play projection'}
+ if(value===null){const h=foCoverage(x);if(h.mean!==null){value=h.mean;source='positive-game average ('+h.positive+' samples)'}}
+ if(value!==null&&foState.scenario==='conservative'){value*=0.85;source+='; 15% scenario discount'}
+ return {value,source:source||'no usable projection',excluded:false};
+}
+function foUpdate(){
+ if(!$('foPro'))return;
+ const assets=foPackage(),issues=[],rows=[];
+ let missing=0,manual=0,known=0;
+ for(const x of assets){const h=foCoverage(x),est=foEstimate(x);if(est.value===null&&!est.excluded){missing++;issues.push(pname(x.id)+' has no usable projected PPG')}else if(est.source?.startsWith('manual'))manual++;else if(!est.excluded)known++;
+ if(x.availability==='unknown')issues.push(pname(x.id)+' availability is not assessed');
+ if(!h.positive&&h.zeros)issues.push(pname(x.id)+' has '+h.zeros+' recorded zeros; reason is not established by matchup data');
+ if(x.value==='')issues.push('Missing dynasty value: '+pname(x.id));
+ rows.push({name:pname(x.id),side:x.side==='out'?'Send':'Receive',pos:pos(x.id),coverage:h,estimate:est,availability:x.availability,value:x.value});}
+ const rInputs=assets.filter(x=>foCoverage(x).positive===0||x.availability==='out');
+ $('foReturnInputs').innerHTML=rInputs.length?rInputs.map(x=>`<label for="foReturn_${esc(x.id)}">${esc(pname(x.id))} · return-to-play PPG</label><input type="number" step="0.1" min="0" id="foReturn_${esc(x.id)}" data-fo-return="${esc(x.id)}" placeholder="Manual estimate, not a live projection" value="${esc(foState.returnPPG[x.id]??'')}">`).join(''):'<p class="tiny">No zero-only or unavailable players selected.</p>';
+ $('foReturnInputs').querySelectorAll('[data-fo-return]').forEach(el=>el.addEventListener('input',()=>{foState.returnPPG[el.dataset.foReturn]=el.value;foWrite();foCalculateOnly()}));
+ foCalculateOnly();
+ const issueList=issues.length?issues.map(v=>'<li>'+esc(v)+'</li>').join(''):'<li>No obvious package-data gaps detected.</li>';
+ $('foAudit').innerHTML=`<b>Coverage audit</b><p>${assets.length} players · ${known} historical estimates · ${manual} manual estimates · ${missing} without usable projections</p><ul>${issueList}</ul>`;
+ $('foDiagnostics').innerHTML=`League: ${esc(LEAGUE)} · ${D?.rosters?.length||0} rosters · ${history?.length||0} completed-week records loaded · player directory ${players?'loaded':'pending'}.<p>Weight: ${esc($('p12Weight').value)}% win now / ${100-Number($('p12Weight').value)}% dynasty. Dynasty price source: ${esc($('p13Source').value||'not specified')}.</p>`;
+ foSavedRender();
+}
+function foCalculateOnly(){
+ if(!$('foPro'))return;
+ const assets=foPackage();if(!D||!players||!history||!assets.length){$('foDelta').textContent='—';$('foWin').textContent='—';$('foCombined').textContent='—';$('foConfidence').textContent='Awaiting data';$('foRisk').textContent='Select trade assets and sync historical matchups.';$('foSensitivity').textContent='';return}
+ const mine=D.rosters.find(r=>r.roster_id===ME);if(!mine)return;
+ const av=averages(),assumptions=new Map(),unavailable=new Set(),missing=[];
+ for(const x of assets){const est=foEstimate(x);if(est.excluded)unavailable.add(String(x.id));else if(est.value!==null)assumptions.set(String(x.id),est.value);else missing.push(pname(x.id))}
+ const score=id=>{id=String(id);if(assumptions.has(id))return assumptions.get(id);const a=av.get(id);return a&&a.positive>0?a.sum/a.n:null};
+ const reserve=new Set([...(mine.reserve||[]),...(mine.taxi||[])].map(String));
+ const base=(mine.players||[]).map(String).filter(id=>!reserve.has(id)&&!unavailable.has(id));
+ const after=base.filter(id=>!p13.out.some(x=>x.id===id));
+ for(const x of p13.in)if(!unavailable.has(x.id)&&!after.includes(x.id))after.push(x.id);
+ const slots=(D.league.roster_positions||[]).filter(s=>s!=='BN');
+ const b=optimize(base,slots,score),a=optimize(after,slots,score);
+ const delta=b&&a&&Number.isFinite(a.score)&&Number.isFinite(b.score)?a.score-b.score:null;
+ const coverage=assets.filter(x=>foEstimate(x).excluded||foEstimate(x).value!==null).length;
+ const confidence=missing.length?'Incomplete':assets.some(x=>x.availability==='unknown')?'Conditional':assets.some(x=>foCoverage(x).positive<3)?'Limited':'Moderate';
+ $('foConfidence').textContent=confidence;
+ $('foDelta').textContent=delta===null?'Unavailable':(delta>=0?'+':'')+fmt(delta)+' PPG';
+ const complete=missing.length===0;
+ const win=complete&&delta!==null?p12Clamp(50+5*delta):null;
+ const missingValues=assets.some(x=>x.value==='');
+ const sent=p13.out.reduce((v,x)=>v+(foNum(x.value)||0),0)+p13.picks.filter(x=>x.side==='out').reduce((v,x)=>v+x.value,0);
+ const received=p13.in.reduce((v,x)=>v+(foNum(x.value)||0),0)+p13.picks.filter(x=>x.side==='in').reduce((v,x)=>v+x.value,0);
+ const dynasty=!missingValues&&sent+received>0?p12Clamp(50+25*(received-sent)/((received+sent)/2)):null;
+ const weight=Number($('p12Weight').value)/100;
+ const combined=win!==null&&dynasty!==null?weight*win+(1-weight)*dynasty:weight===1?win:weight===0?dynasty:null;
+ $('foWin').textContent=win===null?'Withheld':win.toFixed(1)+'/100';
+ $('foCombined').textContent=combined===null?'Withheld':combined.toFixed(1)+'/100';
+ const warnings=[];
+ if(missing.length)warnings.push('Missing projections for '+missing.join(', ')+'. The displayed lineup may omit their contribution; do not treat the resulting delta as a complete trade forecast.');
+ if(assets.some(x=>x.availability==='unknown'))warnings.push('At least one player has unknown availability.');
+ if(assets.some(x=>foCoverage(x).positive<3))warnings.push('Some assets have fewer than three positive-game samples; manual assumptions may be more representative.');
+ if(!p13.picks.length)warnings.push('No additional draft assets selected.');
+ $('foRisk').innerHTML='<b>Interpretation</b><p>'+esc(warnings.join(' ')||'All selected players have some scoring history, but historical performance is not a forecast.')+'</p>';
+ $('foSensitivity').innerHTML=`<p><b>Scenario:</b> ${esc(foState.scenario)} · ${coverage}/${assets.length} players have an estimate or are excluded by manual availability.</p><p>Changing a projection or scenario updates the decision-center lineup immediately. Lineup estimates are not forecasts of future performance.</p>`;
+ foState.last={scenario:foState.scenario,delta,win,dynasty,combined,confidence,warnings,coverage,players:assets.map(x=>({id:x.id,name:pname(x.id),side:x.side,availability:x.availability,value:x.value,ppg:x.ppg,estimate:foEstimate(x)})),picks:p13.picks.map(x=>({...x})),weight:Number($('p12Weight').value),source:$('p13Source').value};
+}
+function foSummary(){const v=foState.last;return !v?'SpeakEasy Front Office: no package selected.':`SpeakEasy Front Office Pro | ${new Date().toLocaleString()}\nScenario: ${v.scenario} | Win-now weight: ${v.weight}%\nSend: ${v.players.filter(x=>x.side==='out').map(x=>x.name).join(', ')||'none'}\nReceive: ${v.players.filter(x=>x.side==='in').map(x=>x.name).join(', ')||'none'}\nScenario combined score: ${v.combined===null?'withheld':v.combined.toFixed(1)+'/100'}\nEstimated lineup delta: ${v.delta===null?'unavailable':v.delta.toFixed(2)+' PPG'}\nConfidence: ${v.confidence}\nWarnings: ${v.warnings.join(' ')}\nValuation source: ${v.source||'unspecified'}\nDynasty values may come from StatChasers or manual overrides; lineup estimates are historical or user supplied.`}
+function foSave(){if(!foState.last){$('foRisk').textContent='Select players before saving.';return}foState.saved.unshift({id:Date.now(),date:new Date().toISOString(),package:{out:p13.out.map(x=>({...x})),in:p13.in.map(x=>({...x})),picks:p13.picks.map(x=>({...x})),partner:$('p13Partner').value,source:$('p13Source').value,weight:$('p12Weight').value},snapshot:foState.last});foState.saved=foState.saved.slice(0,20);foWrite();foSavedRender();$('foRisk').textContent='Package saved on this device.'}
+function foSavedRender(){if(!$('foSaved'))return;$('foSaved').innerHTML=foState.saved.length?foState.saved.map((s,i)=>`<div class="row" style="gap:8px;flex-wrap:wrap"><div style="flex:1;min-width:150px"><b>${esc(new Date(s.date).toLocaleString())}</b><div class="tiny">${esc(s.snapshot?.players?.filter(x=>x.side==='out').map(x=>x.name).join(' + ')||'Assets')} → ${esc(s.snapshot?.players?.filter(x=>x.side==='in').map(x=>x.name).join(' + ')||'Assets')}</div></div><button class="secondary" data-fo-load="${i}">Load</button><button class="secondary" data-fo-delete="${i}">Delete</button></div>`).join(''):'<p class="tiny">No saved packages yet.</p>';
+ $('foSaved').querySelectorAll('[data-fo-load]').forEach(el=>el.addEventListener('click',()=>foLoad(Number(el.dataset.foLoad))));
+ $('foSaved').querySelectorAll('[data-fo-delete]').forEach(el=>el.addEventListener('click',()=>{foState.saved.splice(Number(el.dataset.foDelete),1);foWrite();foSavedRender()}));
+}
+function foLoad(i){const s=foState.saved[i]?.package;if(!s)return;p13.out=s.out.map(x=>({...x}));p13.in=s.in.map(x=>({...x}));p13.picks=s.picks.map(x=>({...x}));$('p13Partner').value=s.partner;$('p13Source').value=s.source;$('p12Weight').value=s.weight;$('p12Weight').dispatchEvent(new Event('input'));p13Render();foUpdate();$('foRisk').textContent='Saved package loaded. Verify rosters and current assumptions before relying on it.'}
+function foExport(){const payload={app:'SpeakEasy Front Office Pro',schema:1,league:LEAGUE,exported:new Date().toISOString(),saved:foState.saved,current:foState.last};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='speakeasy-trades-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),3000)}
+// Wrap render paths; never alter Sleeper sync or historical source audit.
+const foOldP13Render=p13Render;
+p13Render=function(){foOldP13Render();foUpdate()};
+const foOldP13Compute=p13Compute;
+p13Compute=function(){foOldP13Compute();foCalculateOnly()};
+const foOldPopulate=p13Populate;
+p13Populate=function(){foOldPopulate();foUpdate()};
+foInit();
+
+init();
+</script><script>
+/* Consolidated UI: existing Sleeper and trade calculation engines are unchanged. */
+(function(){
+ const nav=document.getElementById('nav');
+ const sub=document.getElementById('analyticsNav');
+ const groups={dashboard:['overview','activity'],teamsview:['teams','picks'],tradeview:['trade'],analytics:['power','optimal','contender','allplay']};
+ let current='dashboard',analytics='power';
+ const sections=[...document.querySelectorAll('main > section')];
+ function show(){
+  const ids=current==='analytics'?[analytics]:groups[current];
+  sections.forEach(s=>s.classList.toggle('hidden',!ids.includes(s.id)));
+  nav.querySelectorAll('[data-view]').forEach(b=>{const active=b.dataset.view===current;b.classList.toggle('active',active);b.setAttribute('aria-selected',String(active));});
+  sub.classList.toggle('visible',current==='analytics');
+  sub.querySelectorAll('[data-analytics]').forEach(b=>b.classList.toggle('active',b.dataset.analytics===analytics));
+ }
+ nav.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{current=b.dataset.view;show();window.scrollTo({top:0,behavior:'instant'});}));
+ sub.querySelectorAll('[data-analytics]').forEach(b=>b.addEventListener('click',()=>{analytics=b.dataset.analytics;show();window.scrollTo({top:0,behavior:'instant'});}));
+ show();
+})();
+
+// GM Edition shared, read-only waiver engine. Values and historical estimates remain distinct.
+const gm={initialized:false};
+function gmInit(){if(gm.initialized)return;gm.initialized=true;
+ $('gmPerspective').addEventListener('change',()=>{const v=$('gmPerspective').value; if(v!=='neutral')ME=Number(v);$('gmNote').textContent=v==='neutral'?'Neutral rankings; team-specific tools use the selected roster.':'Personalized roster analysis · valuations remain neutral.';if(D)render();gmRenderWaivers()});
+ for(const id of ['waiverPosition','waiverSearch','waiverSort'])$(id).addEventListener(id==='waiverSearch'?'input':'change',gmRenderWaivers);
+ $('waiverAdd').addEventListener('change',()=>{$('waiverImpact').textContent='Select Compare to calculate the add/drop impact.'});
+ $('waiverCompare').addEventListener('click',gmCompareWaiver);
+}
+function gmTeam(){return D?.rosters?.find(r=>r.roster_id===ME)}
+function gmPerspective(){if(!D)return;const e=$('gmPerspective'),old=e.value;e.innerHTML='<option value="neutral">League overview · neutral</option>'+D.rosters.map(r=>`<option value="${r.roster_id}">${esc(teamName(r))} · GM view</option>`).join('');e.value=[...e.options].some(x=>x.value===old)?old:'neutral';}
+function gmAvg(id,av){const x=av.get(String(id));return x?.positive?x.sum/x.n:null}
+function gmCandidates(){if(!D||!players)return[];const taken=new Set(D.rosters.flatMap(r=>[...(r.players||[]),...(r.reserve||[]),...(r.taxi||[])].map(String)));
+ const av=averages();const output=[];
+ for(const [id,p] of Object.entries(players)){
+  if(taken.has(String(id))||!p||p.team===null||p.team===''||p.active===false)continue;
+  const position=pos(id);if(!['QB','RB','WR','TE','DL','DE','DT','LB','DB','CB','S'].includes(position))continue;
+  const dynastyRaw=marketPlayerValue(id),dynasty=dynastyRaw===''?null:Number(dynastyRaw),hist=gmAvg(id,av);
+  if(dynasty===null&&hist===null)continue;
+  const win=hist===null?null:Math.max(0,Math.min(100,hist/22*100));
+  const future=dynasty===null?null:Math.max(0,Math.min(100,dynasty/6500*100));
+  // Missing dimensions are not silently treated as zero or reweighted.
+  const overall=win!==null&&future!==null?0.6*win+0.4*future:null;
+  output.push({id,position,dynasty,hist,win,future,overall});
+ }
+ return output;
+}
+function gmRenderWaivers(){if(!D||!players||!$('waiverResults'))return;
+ const arr=gmCandidates(),q=$('waiverSearch').value.toLowerCase().trim(),position=$('waiverPosition').value,sort=$('waiverSort').value;
+ const ranked=arr.filter(x=>(position==='ALL'||x.position===position||(position==='DL'&&['DE','DT'].includes(x.position))||(position==='DB'&&['CB','S'].includes(x.position)))&&(!q||pname(x.id).toLowerCase().includes(q)));
+ ranked.sort((a,b)=>(b[sort==='overall'?'overall':sort==='win'?'win':'dynasty']??-1)-(a[sort==='overall'?'overall':sort==='win'?'win':'dynasty']??-1)||pname(a.id).localeCompare(pname(b.id)));
+ $('waiverStatus').textContent=`${arr.length} eligible unrostered players with historical or dynasty data · ${ranked.length} matching filters · 60/40 ranking requires both data types. Historical scoring is not a forward projection.`;
+ $('waiverResults').innerHTML=ranked.slice(0,35).map((x,i)=>`<div class="row"><div><b>${i+1}. ${esc(pname(x.id))}</b> <span class="tiny">${esc(x.position)}</span><div class="meta">Historical ${x.hist===null?'unavailable':x.hist.toFixed(1)+' PPG'} · Dynasty ${x.dynasty===null?'unavailable':fmt(x.dynasty)} · ${x.overall===null?'Incomplete ranking data':'Overall '+x.overall.toFixed(1)+'/100'}</div></div><button class="secondary" type="button" data-gmadd="${esc(x.id)}">Compare</button></div>`).join('')||'<div class="notice">No matching unrostered players with usable data.</div>';
+ const add=$('waiverAdd'),old=add.value;add.innerHTML=ranked.slice(0,250).map(x=>`<option value="${esc(x.id)}">${esc(pname(x.id))} (${esc(x.position)})</option>`).join('');if(ranked.some(x=>x.id===old))add.value=old;
+ const drop=$('waiverDrop'),prev=drop.value;drop.innerHTML=(gmTeam()?.players||[]).map(id=>`<option value="${esc(id)}">${esc(pname(id))} (${esc(pos(id))})</option>`).join('');if([...drop.options].some(x=>x.value===prev))drop.value=prev;
+ $('waiverResults').querySelectorAll('[data-gmadd]').forEach(b=>b.addEventListener('click',()=>{add.value=b.dataset.gmadd;gmCompareWaiver();}));
+}
+function gmCompareWaiver(){const r=gmTeam(),add=$('waiverAdd').value,drop=$('waiverDrop').value,out=$('waiverImpact');if(!r||!add||!drop){out.textContent='Choose an available player and a drop candidate.';return;}
+ const av=averages(),pts=id=>gmAvg(id,av),slots=(D.league.roster_positions||[]).filter(s=>!['BN','IR','TAXI'].includes(s));
+ const disabled=new Set([...(r.reserve||[]),...(r.taxi||[])].map(String));const before=(r.players||[]).map(String).filter(id=>!disabled.has(id));const after=before.filter(id=>id!==String(drop));after.push(String(add));
+ const a=optimize(before,slots,pts),b=optimize(after,slots,pts);const delta=a&&b?b.score-a.score:null;
+ const vAdd=marketPlayerValue(add),vDrop=marketPlayerValue(drop);
+ const vDelta=vAdd!==''&&vDrop!==''?Number(vAdd)-Number(vDrop):null;
+ const starterNames=x=>x?.assign?.map(y=>`${esc(pname(y.id))} (${esc(slots[y.slot])}: ${y.score.toFixed(1)})`).join(', ')||'Not enough scoring data for a full legal lineup';
+ out.innerHTML=`<b>${esc(pname(add))} IN · ${esc(pname(drop))} OUT</b><p>Historical optimized lineup: ${delta===null?'unavailable':fmt(a.score)+' → '+fmt(b.score)+' PPG ('+(delta>=0?'+':'')+delta.toFixed(1)+')'}</p><p>Dynasty market value change: ${vDelta===null?'unavailable':(vDelta>=0?'+':'')+fmt(vDelta)}</p><details><summary>Explain lineup replacements</summary><p class="tiny"><b>Before:</b> ${starterNames(a)}</p><p class="tiny"><b>After:</b> ${starterNames(b)}</p></details><p class="tiny">Historical averages, not ROS projections. Missing values are not zero. Does not account for waiver priority, FAAB, future usage or injuries.</p>`;
+}
+const gmOriginalRender=render;
+render=function(){gmOriginalRender();gmPerspective();gmRenderWaivers();};
+gmInit();
+</script></body></html>
