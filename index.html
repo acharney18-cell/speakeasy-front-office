@@ -392,8 +392,21 @@ function liProvenanceRender(){
  '<div class="tiny" style="margin-top:9px">'+details.map(esc).join('<br>')+'</div>'+
  (warnings.length?'<div class="warn" style="margin-top:10px">'+warnings.map(esc).join(' · ')+'</div>':'<div style="margin-top:10px">No obvious roster-coverage mismatch detected. This does not independently validate player statistics.</div>')+
  '<div class="tiny" style="margin-top:10px">Source: league-wide Sleeper matchup records, not the dynasty valuation API. Starter/bench labels reflect historical matchup rosters. Recorded zeroes are not replaced or inferred to mean injury.</div>';
-}
-const liPhase11Previous=liRender;
-liRender=function(){liPhase11Previous();liProvenanceRender()};
+const liPhase11Previous = liRender;
+
+liRender = function() {
+  liPhase11Previous();
+  liProvenanceRender();
+};
+
+// Update the audit immediately whenever the trade selection changes.
+$('tlGet').addEventListener('change', liProvenanceRender);
+$('tlGive').addEventListener('change', liProvenanceRender);
+$('tlPartner').addEventListener('change', () => {
+  setTimeout(liProvenanceRender, 0);
+});
+
+// Run once after initialization, including when using cached data.
+liProvenanceRender();
 
 </script></body></html>
